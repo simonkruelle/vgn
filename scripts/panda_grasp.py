@@ -13,6 +13,7 @@ from robot_helpers.spatial import Rotation, Transform
 from vgn.rviz import Visualizer
 from vgn.srv import GetMapCloud, GetSceneCloud, PredictGrasps, PredictGraspsRequest
 from vgn.utils import from_grasp_config_msg
+# from sensor_msgs.msg import PointCloud2
 
 
 class PandaGraspController(object):

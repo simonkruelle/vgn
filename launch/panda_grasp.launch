@@ -3,10 +3,16 @@
   <arg name="launch_rviz" default="true" />
 
   <!-- Launch Panda controller -->
-  <include file="$(find moma_bringup)/launch/franka_control.launch">
+  <include file="/home/skruelle/ws/robot_ws/src/franka_ros/franka_control/launch/franka_control.launch">
     <arg name="robot_ip" value="172.16.0.2" />
   </include>
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="position_joint_trajectory_controller"/>
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="position_joint_trajectory_controller effort_joint_trajectory_controller"/>
+
+  <!-- Launch Boya's Camera Transform Publisher -->
+  <node name="publish_camera_transform_node" pkg="handeye_calibration" type="publish_camera_transform_node.py"
+    respawn="false" output="screen">
+    <rosparam command="load" file="$(find handeye_calibration)/config/params_publish_camera_transform.yaml" />
+  </node>
 
   <!-- Launch MoveIt -->
   <node pkg="tf2_ros" type="static_transform_publisher" name="to_panda" args="0 0 0 0 0 0  world panda_link0" />
